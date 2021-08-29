@@ -11,7 +11,7 @@
                 <div class="col-md-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>User List</h2>
+                            <h2><i class=" fa fa-users"></i> User List</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -55,18 +55,36 @@
                                                 <td>{{$user->name}}</td>
                                                 <td>{{$user->username}}</td>
                                                 <td>{{$user->email}}</td>
-                                                <td>{{$user->gender}}</td>
+                                                <td>{{ucfirst($user->gender)}}</td>
                                                 <td>
                                                     <img src="{{url('uploads/users/'.$user->image)}}"
                                                          width="40" alt="">
                                                 </td>
-                                                <td>{{$user->status}}</td>
+                                                <td>
+                                                    <form action="{{route('update-user-status')}}" method="post">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" name="criteria" value="{{$user->id}}">
+                                                    @if($user->status==1)
+                                                        <button name="active" class="btn-sm btn-success">
+                                                            <i class="fa fa-check"></i>
+                                                        </button>
+                                                    @else
+                                                        <button name="inactive" class="btn-sm btn-danger">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+
+
+                                                    @endif
+                                                    </form>
+                                                </td>
                                                 <td>{{$user->user_type}}</td>
                                                 <td>
-                                                    <a href="" class="btn-sm btn-success">
+                                                    <a href="{{route('edit-user').'/'.$user->id}}"
+                                                       class="btn-sm btn-success">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
-                                                    <a href="" class="btn-sm btn-danger">
+                                                    <a href="{{route('delete-user').'/'.$user->id}}"
+                                                       class="btn-sm btn-danger">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
 

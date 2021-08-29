@@ -28,7 +28,4 @@ class User extends Auth
         return Str::title($value);
     }
 
-    public function getGenderAttribute($value){
-        return Str::title($value);
-    }
 }

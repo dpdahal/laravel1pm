@@ -11,7 +11,7 @@
                 <div class="col-md-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Add User</h2>
+                            <h2><i class="fa fa-edit"></i> Update User Record</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -33,9 +33,13 @@
                                 <div class="col-md-12">
                                     @include('backend.layouts.message')
                                 </div>
-                                <div class="col-md-12">
-                                    <form action="{{route('create-user')}}" method="post" enctype="multipart/form-data">
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <form action="{{route('edit-user-action')}}" method="post" enctype="multipart/form-data">
                                         {{csrf_field()}}
+                                        <input type="hidden" name="criteria" value="{{$userData->id}}">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -43,7 +47,7 @@
                                                         <a style="color: red;">{{$errors->first('name')}}</a>
                                                     </label>
                                                     <input type="text" name="name" id="name"
-                                                           class="form-control" value="{{old('name')}}">
+                                                           class="form-control" value="{{$userData->name}}">
                                                 </div>
 
                                             </div>
@@ -53,7 +57,7 @@
                                                         <a style="color: red;">{{$errors->first('username')}}</a>
                                                     </label>
                                                     <input type="text" name="username" id="username"
-                                                           class="form-control" value="{{old('username')}}">
+                                                           class="form-control" value="{{$userData->username}}">
                                                 </div>
                                             </div>
                                         </div>
@@ -64,23 +68,9 @@
                                                 <a style="color: red;">{{$errors->first('email')}}</a>
                                             </label>
                                             <input type="text" name="email" id="email"
-                                                   class="form-control" value="{{old('email')}}">
+                                                   class="form-control" value="{{$userData->email}}">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="password">Password:
-                                                <a style="color: red;">{{$errors->first('password')}}</a>
-                                            </label>
-                                            <input type="password" name="password" id="password"
-                                                   class="form-control">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="password_confirmation">Confirm Password:
-                                                <a style="color: red;">{{$errors->first('password_confirmation')}}</a>
-                                            </label>
-                                            <input type="password" name="password_confirmation"
-                                                   id="password_confirmation"
-                                                   class="form-control">
-                                        </div>
+
                                         <div class="form-group">
                                             <label for="image">Image:
                                                 <a style="color: red;">{{$errors->first('image')}}</a>
@@ -94,13 +84,13 @@
                                                 <a style="color: red;">{{$errors->first('gender')}}</a>
                                             </label>
                                             <select name="gender" id="gender" class="form-control">
-                                                <option value="" readonly>--Select Gender ---</option>
-                                                <option value="male" {{old('gender')=='male' ? 'selected' : ''}}>Male
+                                                <option value="male" {{$userData->gender==='male' ? 'selected' : ''}}>
+                                                    Male
                                                 </option>
-                                                <option value="female" {{old('gender')=='female' ? 'selected' : ''}}>
+                                                <option value="female" {{$userData->gender==='female' ? 'selected' : ''}}>
                                                     Female
                                                 </option>
-                                                <option value="others" {{old('gender')=='others' ? 'selected' : ''}}>
+                                                <option value="others" {{$userData->gender==='others' ? 'selected' : ''}}>
                                                     Others
                                                 </option>
                                             </select>
@@ -110,21 +100,26 @@
                                                 <a style="color: red;">{{$errors->first('user_type')}}</a>
                                             </label>
                                             <select name="user_type" id="user_type" class="form-control">
-                                                <option value="" readonly>--Select Types ---</option>
-                                                <option value="admin" {{old('user_type')=='admin' ? 'selected' : ''}}>
+                                                <option value="admin" {{$userData->user_type=='admin' ? 'selected' : ''}}>
                                                     Admin
                                                 </option>
-                                                <option value="user" {{old('user_type')=='user' ? 'selected' : ''}}>
+                                                <option value="user" {{$userData->user_type=='user' ? 'selected' : ''}}>
                                                     User
                                                 </option>
 
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                            <button class="btn btn-success">Add New User</button>
+                                            <button class="btn btn-success"> Update User</button>
                                         </div>
 
                                     </form>
+
+                                </div>
+                                <div class="col-md-4">
+
+                                    <img src="{{url('uploads/users/'.$userData->image)}}"
+                                         class="img-fluid img-thumbnail" alt="">
 
                                 </div>
                             </div>
