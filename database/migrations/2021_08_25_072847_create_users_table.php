@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('image')->nullable();
             $table->enum('user_type', ['admin', 'user'])->default('user');
             $table->boolean('status')->default(0);
+            $table->rememberToken();
             $table->timestamps();
         });
     }
