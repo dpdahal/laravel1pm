@@ -36,6 +36,12 @@
                                 <li><a href="{{route('users')}}">Show Users</a></li>
                             </ul>
                         </li>
+                        <li><a><i class="fa fa-book"></i> Category <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('admin-category.create')}}">Add User</a></li>
+                                <li><a href="{{route('admin-category.index')}}">Show Users</a></li>
+                            </ul>
+                        </li>
 
 
                     </ul>
