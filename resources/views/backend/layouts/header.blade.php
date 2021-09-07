@@ -14,13 +14,18 @@
     <link href="{{url('backend-ui/vendors/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet">
     <!-- Font Awesome -->
     <link href="{{url('backend-ui/vendors/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{url('backend-ui/taginput/src/bootstrap-tagsinput.css')}}" rel="stylesheet">
+    <link href="{{url('backend-ui/ckeditor/contents.css')}}" rel="stylesheet">
     <!-- NProgress -->
-    <link href="{{url('backend-ui/vendors/nprogress/nprogress.css')}}" rel="stylesheet">
     <!-- bootstrap-wysiwyg -->
-    <link href="{{url('backend-ui/vendors/google-code-prettify/bin/prettify.min.css')}}" rel="stylesheet">
+
+    <link href="{{url('backend-ui/vendors/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+
+    <link href="{{url('backend-ui/vendors/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css')}}" rel="stylesheet">
 
     <!-- Custom styling plus plugins -->
     <link href="{{url('backend-ui/build/css/custom.min.css')}}" rel="stylesheet">
+    <link href="{{url('backend-ui/custom/style.css')}}" rel="stylesheet">
 </head>
 
 <body class="nav-md">
