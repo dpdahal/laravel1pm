@@ -3,41 +3,67 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
 
         return view('backend.pages.category.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
 
         return view('backend.pages.category.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        //
+
+        $this->validate($request, [
+            'title' => 'required|unique:categories,title',
+            'slug' => 'required|unique:categories,slug',
+            'date' => 'required',
+            'status' => 'required',
+            'image' => 'mimes:jpg,jpeg,png,gif'
+        ]);
+
+        $obj = new Category();
+        $obj->title = $request->title;
+        $obj->slug = Str::slug($request->slug);
+        $obj->date = $request->date;
+        $obj->status = $request->status;
+        $obj->meta_keywords = $request->meta_keywords;
+        $obj->meta_description = $request->meta_description;
+        $obj->summary = $request->summary;
+        $obj->description = $request->description;
+        $obj->posted_by = Auth::user()->id;
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $ext = $file->getClientOriginalExtension();
+            $imageName = md5(microtime()) . '.' . $ext;
+            $uploadPath = public_path('uploads/category');
+            if (!$file->move($uploadPath, $imageName)) {
+                return redirect()->back();
+            }
+            $obj->image = $imageName;
+
+        }
+
+
+        if ($obj->save()) {
+            return redirect()->route('admin-category.index')->with('success', 'category was successfully created');
+        }
+
+
     }
 
     /**

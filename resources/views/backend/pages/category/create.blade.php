@@ -11,7 +11,7 @@
                 <div class="col-md-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Add Category</h2>
+                            <h2> <i class="fa fa-plus"></i> Add Category</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -36,17 +36,18 @@
                                 <div class="col-md-12">
 
                                     <form action="{{route('admin-category.store')}}" method="post" enctype="multipart/form-data">
+                                        @csrf
                                         <div class="form-group">
                                             <label for="title">Title
                                                 <a style="color: red;">{{$errors->first('title')}}</a>
                                             </label>
-                                            <input type="text" name="title" id="title" class="form-control">
+                                            <input type="text" value="{{old('title')}}" name="title" id="title" class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label for="slug">Slug
                                                 <a style="color: red;">{{$errors->first('slug')}}</a>
                                             </label>
-                                            <input type="text" name="slug" id="slug" class="form-control">
+                                            <input type="text" name="slug" value="{{old('slug')}}" id="slug" class="form-control">
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
@@ -54,7 +55,7 @@
                                                     <label for="myDatepicker">Date
                                                         <a style="color: red;">{{$errors->first('date')}}</a>
                                                     </label>
-                                                    <input type="text" name="date" id="myDatepicker" class="form-control">
+                                                    <input type="text" name="date" id="myDatepicker" value="{{old('date')}}" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -64,8 +65,8 @@
                                                     </label>
                                                     <select name="status" id="status" class="form-control">
                                                         <option value="" readonly>---Select Status ---</option>
-                                                        <option value="1">Public</option>
-                                                        <option value="0">Draft</option>
+                                                        <option value="1" {{old('status')=='1' ? 'selected' : ''}}>Public</option>
+                                                        <option value="0" {{old('status')=='0' ? 'selected' : ''}}>Draft</option>
                                                     </select>
                                                 </div>
 
@@ -74,28 +75,36 @@
 
                                         <div class="form-group">
                                             <label for="meta_keywords">Meta Keywords</label> <br>
-                                            <input type="text" class="form-control" value="education,sport,travel" data-role="tagsinput" id="meta_keywords">
+                                            <input type="text" class="form-control" value="{{old('meta_keywords','education,sport,travel')}}" data-role="tagsinput" id="meta_keywords">
                                         </div>
                                         <div class="form-group">
                                             <label for="meta_description">Meta Description</label> <br>
-                                           <textarea name="meta_description" id="meta_description" class="form-control"></textarea>
+                                           <textarea name="meta_description" id="meta_description" class="form-control">
+                                               {{old('meta_description')}}
+                                           </textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="summary">summary</label> <br>
                                             <textarea name="summary" id="summary"
-                                                      class="form-control"></textarea>
+                                                      class="form-control">
+                                                 {{old('summary')}}
+                                            </textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="description">description</label> <br>
                                             <textarea name="description" id="description"
-                                                      class="form-control"></textarea>
+                                                      class="form-control">
+                                                 {{old('description')}}
+                                            </textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label for="image">Image</label> <br>
+                                            <label for="image">Image:
+                                                <a style="color: red;">{{$errors->first('image')}}</a>
+                                            </label> <br>
                                             <input type="file" name="image" class="btn btn-default">
                                         </div>
                                         <div class="form-group">
-                                           <button>Add Record</button>
+                                           <button class="btn btn-success"> Add Record</button>
                                         </div>
 
 
