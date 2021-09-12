@@ -11,7 +11,7 @@
                 <div class="col-md-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Show  Category</h2>
+                            <h2>Show Category</h2>
                             <ul class="nav navbar-right panel_toolbox">
                                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                                 </li>
@@ -34,6 +34,38 @@
                                     @include('backend.layouts.message')
                                 </div>
                                 <div class="col-md-12">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>S.n</th>
+                                            <th>Title</th>
+                                            <th>Slug</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($categoryData as $key=>$category)
+                                            <tr>
+                                                <td>{{++$key}}</td>
+                                                <td>{{$category->title}}</td>
+                                                <td>{{$category->slug}}</td>
+                                                <td>{{$category->status}}</td>
+                                                <td>
+                                                    <form action="{{route('admin-category.destroy',$category->id)}}"
+                                                          method="post">
+                                                        {{csrf_field()}}
+                                                        @method('delete')
+                                                        <a href="{{route('admin-category.edit',$category->id)}}" class="btn btn-success">Edit</a>
+                                                        <button class="btn-sm btn-danger">Delete</button>
+                                                    </form>
+
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
 
                                 </div>
                             </div>

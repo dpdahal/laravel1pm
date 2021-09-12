@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         'title',
         'slug',
         'date',
@@ -22,4 +23,9 @@ class Category extends Model
         'posted_by'
 
     ];
+
+    public function getTitleAttribute($value)
+    {
+        return Str::title($value);
+    }
 }
