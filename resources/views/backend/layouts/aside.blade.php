@@ -42,6 +42,12 @@
                                 <li><a href="{{route('admin-category.index')}}">Show Category</a></li>
                             </ul>
                         </li>
+                        <li><a><i class="fa fa-newspaper-o"></i> News <span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{route('admin-news.create')}}">Add News</a></li>
+                                <li><a href="{{route('admin-news.index')}}">Show News</a></li>
+                            </ul>
+                        </li>
 
 
                     </ul>

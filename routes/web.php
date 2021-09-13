@@ -37,6 +37,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'company-backend', 'middlewa
     });
 
     Route::resource('admin-category', '\App\Http\Controllers\Backend\CategoryController');
+    Route::resource('admin-news', '\App\Http\Controllers\Backend\NewsController');
 
 
     Route::any('logout', [UserLoginController::class, 'logout'])->name('logout');
