@@ -11,6 +11,8 @@ Route::group(['namespace' => 'Frontend'], function () {
     Route::any('/', [ApplicationController::class, 'index'])->name('index');
     Route::any('/about', [ApplicationController::class, 'about'])->name('about');
     Route::any('/contact', [ApplicationController::class, 'contact'])->name('contact');
+    Route::any('category/{criteria?}', [ApplicationController::class, 'getNewsByCategory'])->name('category');
+    Route::any('news-details/{criteria?}', [ApplicationController::class, 'newsDetails'])->name('news-details');
 
 });
 

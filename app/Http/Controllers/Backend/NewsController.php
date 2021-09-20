@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Request as CustomRequest;
+use Intervention\Image\Facades\Image;
 
 class NewsController extends Controller
 {
@@ -36,14 +37,15 @@ class NewsController extends Controller
             $imageName = md5(microtime()) . '.' . $ext;
 
             if ($isThumbnail == true) {
-                $thumbnailPath = public_path($uploadPath . '/thumbnail');
+                $thumbnailPath = public_path($uploadPath . '/thumbnail/');
                 if (!file_exists($thumbnailPath)) {
                     File::makeDirectory($thumbnailPath, 0755, true);
                 }
-                if (!$file->move($thumbnailPath, $imageName)) {
-                    return redirect()->back()->with('error', 'file upload errors');
-                }
-
+                $imageThumbnailPath = public_path($uploadPath . '/thumbnail/' . $imageName);
+                $image = Image::make($file->getRealPath())->resize(200, null, function ($fileObj) {
+                    $fileObj->aspectRatio();
+                });
+                $image->save($imageThumbnailPath);
                 $this->thumbNailName = $imageName;
             }
 
@@ -97,9 +99,6 @@ class NewsController extends Controller
     public function store(Request $request)
     {
 
-//        echo $this->customFileUpload('uploads/news', true);
-//        echo $this->thumbmnail();
-//        die();
 
         $this->validate($request, [
             'category_id' => 'required',
@@ -121,6 +120,8 @@ class NewsController extends Controller
         $obj->description = $request->description;
         $obj->posted_by = Auth::user()->id;
         $obj->category_id = $request->category_id;
+        $obj->image = $this->customFileUpload('uploads/news/', true);
+        $obj->thumbnail = $this->thumbmnail();
 
 
         if ($obj->save()) {

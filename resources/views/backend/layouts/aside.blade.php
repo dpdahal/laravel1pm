@@ -48,8 +48,6 @@
                                 <li><a href="{{route('admin-news.index')}}">Show News</a></li>
                             </ul>
                         </li>
-
-
                     </ul>
                 </div>
 

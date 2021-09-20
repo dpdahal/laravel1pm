@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class ApplicationController extends Controller
@@ -34,5 +35,21 @@ class ApplicationController extends Controller
     public function contact()
     {
         return view('frontend.pages.contact.contact', $this->data);
+    }
+
+    public function getNewsByCategory(Request $request)
+    {
+        $criteria = $request->criteria;
+        $categoryData = Category::where('slug', '=', $criteria)->first();
+        $this->data('categorySingleData', $categoryData);
+        return view('frontend.pages.news.news-list', $this->data);
+    }
+
+    public function newsDetails(Request $request)
+    {
+        $criteria = $request->criteria;
+        $newsDetails = News::where('slug', '=', $criteria)->first();
+        $this->data('newsDetails', $newsDetails);
+        return view('frontend.pages.news.news-details', $this->data);
     }
 }
